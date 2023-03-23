@@ -22,8 +22,6 @@ namespace MaximalSum
             {
                 throw new ArgumentException("File is empty");
             }
-
-            BrokenLineIdentification();
         }
 
         public int MaxSumLineIdentification()
@@ -32,6 +30,12 @@ namespace MaximalSum
             {
                 string[] numbers = _data[i].Split(',');
                 double sum = 0;
+
+                if (IfLineBroken(numbers) == true)
+                {
+                    _brokenLines.Add(i + 1);
+                    continue;
+                }
 
                 for (int j = 0; j < numbers.Length; j++)
                 {
@@ -45,7 +49,7 @@ namespace MaximalSum
                 if (sum > _maxSum)
                 {
                     _maxSum = sum;
-                    _lineNumber = i+1;    //adding one to line number, because normally we start counting from 1, not from 0
+                    _lineNumber = i + 1;    //adding one to line number, because normally we start counting from 1, not from 0
                 }
             }
             return _lineNumber;
@@ -74,22 +78,17 @@ namespace MaximalSum
             return clonedArray;
         }
 
-        private void BrokenLineIdentification()
+        private bool IfLineBroken(string[] numbers)
         {
-            for (int i = 0; i < _data.Length; i++)
+            for (int j = 0; j < numbers.Length; j++)
             {
-                string[] numbers = _data[i].Split(',');
-
-                for (int j = 0; j < numbers.Length; j++)
+                double number;
+                if (!double.TryParse(numbers[j], out number))
                 {
-                    double number;
-                    if (!double.TryParse(numbers[j], out number))
-                    {
-                        _brokenLines.Add(i + 1);  //adding one to line number, because normally we start counting from 1, not from 0
-                        break;
-                    }
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

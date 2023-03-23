@@ -1,4 +1,5 @@
 using MaximalSum;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -12,7 +13,7 @@ namespace UnitTests
         public void TestIfFileEmpty()
         {
             // arrange
-            string file = "C:\\Users\\volko\\OneDrive\\Desktop\\.NET Mentoring\\3. Maximal sum\\MaximalSum\\UnitTests\\Test1.txt";
+            string file = "Test1.txt";
             string[] lines = File.ReadAllLines(file);
 
             //act
@@ -26,7 +27,7 @@ namespace UnitTests
         public void MaxCalculation() 
         {
             // arrange
-            string file = "C:\\Users\\volko\\OneDrive\\Desktop\\.NET Mentoring\\3. Maximal sum\\MaximalSum\\UnitTests\\Test2.txt";
+            string file = "Test2.txt";
             string[] lines = File.ReadAllLines(file);
             int expectedResult = 10;
 
@@ -41,13 +42,15 @@ namespace UnitTests
         [TestMethod]
         public void BrokenLines()
         {
-            // arrange
-            string file = "C:\\Users\\volko\\OneDrive\\Desktop\\.NET Mentoring\\3. Maximal sum\\MaximalSum\\UnitTests\\Test2.txt";
+            // arrange   
+            string file = "Test2.txt";
+
             string[] lines = File.ReadAllLines(file);
             int[] _brokenLines = { 2, 4, 7, 8, 9 };
 
             //act
             MaxSumCalc test3 = new MaxSumCalc(file);
+            test3.MaxSumLineIdentification();
             int[] actualResult = test3.BrokenLinesArrayClone();
 
             // assert
