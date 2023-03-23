@@ -52,6 +52,11 @@ namespace MaximalSum
                     _lineNumber = i + 1;    //adding one to line number, because normally we start counting from 1, not from 0
                 }
             }
+
+            if (_lineNumber == 0)
+            {
+                throw new ArgumentException("All lines are broken");
+            }
             return _lineNumber;
         }
 
