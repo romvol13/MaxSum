@@ -20,43 +20,14 @@ namespace MaximalSum
 
             if (IsFileEmpty() == true)
             {
-                throw new ArgumentException("File is empty");
+                throw new ArgumentException("File is empty!");
             }
+
+            MaxSumLineIdentification();
         }
 
-        public int MaxSumLineIdentification()
+        public int GetMaxSumLine()
         {
-            for (int i = 0; i < _data.Length; i++)
-            {
-                string[] numbers = _data[i].Split(',');
-                double sum = 0;
-
-                if (IfLineBroken(numbers) == true)
-                {
-                    _brokenLines.Add(i + 1);
-                    continue;
-                }
-
-                for (int j = 0; j < numbers.Length; j++)
-                {
-                    double number;
-                    if (double.TryParse(numbers[j], out number))
-                    {
-                        sum += number;
-                    }
-                }
-
-                if (sum > _maxSum)
-                {
-                    _maxSum = sum;
-                    _lineNumber = i + 1;    //adding one to line number, because normally we start counting from 1, not from 0
-                }
-            }
-
-            if (_lineNumber == 0)
-            {
-                throw new ArgumentException("All lines are broken");
-            }
             return _lineNumber;
         }
 
@@ -83,7 +54,42 @@ namespace MaximalSum
             return clonedArray;
         }
 
-        private bool IfLineBroken(string[] numbers)
+        private void MaxSumLineIdentification()
+        {
+            for (int i = 0; i < _data.Length; i++)
+            {
+                string[] numbers = _data[i].Split(',');
+                double sum = 0;
+
+                if (IsLineBroken(numbers) == true)
+                {
+                    _brokenLines.Add(i + 1);
+                    continue;
+                }
+
+                for (int j = 0; j < numbers.Length; j++)
+                {
+                    double number;
+                    if (double.TryParse(numbers[j], out number))
+                    {
+                        sum += number;
+                    }
+                }
+
+                if (sum > _maxSum)
+                {
+                    _maxSum = sum;
+                    _lineNumber = i + 1;    //adding one to line number, because normally we start counting from 1, not from 0
+                }
+            }
+
+            if (_lineNumber == 0)
+            {
+                throw new ArgumentException("All lines are broken");
+            }
+        }
+
+        private bool IsLineBroken(string[] numbers)
         {
             for (int j = 0; j < numbers.Length; j++)
             {

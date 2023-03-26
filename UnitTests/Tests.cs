@@ -10,7 +10,7 @@ namespace UnitTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestIfFileEmpty()
+        public void IsFileEmpty()
         {
             // arrange
             string file = "Test1.txt";
@@ -18,9 +18,6 @@ namespace UnitTests
 
             //act
             MaxSumCalc test1 = new MaxSumCalc(file);
-
-            // assert
-            bool actualResult = test1.IsFileEmpty();
         }
 
         [TestMethod]
@@ -33,7 +30,7 @@ namespace UnitTests
 
             //act
             MaxSumCalc test2 = new MaxSumCalc(file);
-            int actualResult = test2.MaxSumLineIdentification();
+            int actualResult = test2.GetMaxSumLine();
 
             // assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -50,11 +47,22 @@ namespace UnitTests
 
             //act
             MaxSumCalc test3 = new MaxSumCalc(file);
-            test3.MaxSumLineIdentification();
+            test3.GetMaxSumLine();
             int[] actualResult = test3.BrokenLinesArrayClone();
 
             // assert
             CollectionAssert.AreEqual(_brokenLines, actualResult);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AllLinesBroken()
+        {
+            // arrange
+            string file = "Test3.txt";
+
+            //act
+            MaxSumCalc test4 = new MaxSumCalc(file);
         }
     }
 }
